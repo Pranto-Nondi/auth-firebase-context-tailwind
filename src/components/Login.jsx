@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProviders';
 
 const Login = () => {
-    const { signIn } = useContext(AuthContext)
+    const { signIn, googleSignIn } = useContext(AuthContext)
     const handelLogin = (e) => {
         e.preventDefault()
         const form = e.target
@@ -15,9 +15,21 @@ const Login = () => {
                 const loggedUser = result.user
                 console.log(loggedUser)
                 form.reset()
+
             })
             .catch(error => {
                 console.log(error.message)
+            })
+    }
+
+    const handelGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                const googleLoggedUser = result.user
+                console.log(googleLoggedUser)
+            })
+            .catch(error => {
+                console.log(error)
             })
     }
     return (
@@ -47,7 +59,10 @@ const Login = () => {
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Login</button>
+                            <br />
+                            <img onClick={handelGoogleSignIn} className=" cursor-pointer" src=" https://i.ibb.co/QXMzVP3/google.png" alt="" />
                         </div>
+
                     </div>
                 </form>
             </div>
