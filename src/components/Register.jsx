@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProviders';
 
 const Register = () => {
-    const { user, createUser } = useContext(AuthContext)
+    const { user, createUser, logOut } = useContext(AuthContext)
 
 
     const handelRegister = (e) => {
@@ -18,6 +18,16 @@ const Register = () => {
                 const CreatedUser = result.user;
                 console.log(CreatedUser)
                 form.reset()
+
+                logOut()
+                    .then(() => {
+                        console.log('Sign-out successful.')
+                        alert('Acount Created SucessFUlly ')
+
+                    })
+                    .catch(error => {
+                        console.log(error.message)
+                    })
             })
             .catch(error => {
                 console.log(error)
